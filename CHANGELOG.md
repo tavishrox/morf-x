@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- HX Effects: blocks in the ninth path-A slot (position 9, often the reverb) are now read, so they appear in the Block list.
+
 ## 0.2.0 (22 Nov 2026)
 
 - A new look: the block's knobs shown like the POD Go's screen, every knob at once, in the MORF-X theme.

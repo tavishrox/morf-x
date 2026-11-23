@@ -30,10 +30,12 @@
     { vendorId: 0x0E41, productId: 0x424B, name: "POD Go", image: "devices/podgo.webp", family: "podgo", slots: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] },
     { vendorId: 0x0E41, productId: 0x4248, name: "Helix", image: "devices/helixfloor.webp", family: "helix", bStart: 11,
       slots: [1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 17, 18, 21, 22, 23, 24, 25, 26, 27, 28, 31, 32, 33, 34, 35, 36, 37, 38] },
-    // HX Effects (2026-11-16, on the unit): 1..8 path A, 9 looper, 10 split, 11 merge, path B from 12, 21 output;
-    // reading blocks, setting a knob and saving (0x46) checked.
+    // HX Effects (2026-11-16, on the unit): 1..9 path A (9 block slots), 10 split, 11 merge, path B
+    // from 12 (12..20), 21 output. The looper is an ordinary block, so a block seen at position 9 is a
+    // normal ninth path-A block (often the reverb), not a structural slot; reading blocks, setting a
+    // knob and saving (0x46) checked.
     { vendorId: 0x0E41, productId: 0x4245, name: "HX Effects", image: "devices/hxfx.webp", family: "helix", bStart: 12,
-      slots: [1, 2, 3, 4, 5, 6, 7, 8, 12, 13, 14, 15, 16, 17, 18, 19, 20] },
+      slots: [1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19, 20] },
     { vendorId: 0x0E41, productId: 0x4246, name: "HX Stomp", image: "devices/stomp.webp", family: "helix", bStart: 11, untested: true,
       slots: [1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 17, 18] },
     { vendorId: 0x0E41, productId: 0x4253, name: "HX Stomp XL", image: "devices/stompxl.webp", family: "helix", bStart: 11, untested: true,
