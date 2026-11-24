@@ -358,7 +358,7 @@ kbd { font: 12px var(--mono); border: 1px solid var(--rule); border-bottom-width
   </div>
 </aside>
 
-<script src="podgo-usb.js?v=2026-11-22a"></script>
+<script src="podgo-usb.js?v=2026-11-24a"></script>
 <script>
 'use strict';
 // ---- the five tones: keys as in the tone files, positions in pad space (x, y in [-1, 1], y up) ----
@@ -1267,11 +1267,14 @@ async function setlistPresets(setlist) {
 }
 // Setlist names: the POD Go's two are Factory and User (its settings group lists them in that order).
 const setlistName = i => !isHelix() && plSetlists.length === 2 ? ['Factory', 'User'][i] : `Setlist ${i + 1}`;
-const slotName = i => String(Math.floor(i / 4) + 1).padStart(2, '0') + 'ABCD'[i % 4];
+// A slot's name as the unit shows it: banks of 4 (01A-32D) on every unit except the HX Stomp, which has banks of 3
+// (01A-42C). Only the connected device's own perBank changes it, so nothing else is affected.
+const perBank = () => (pg && pg.device && pg.device.perBank) || 4;
+const slotName = i => { const b = perBank(); return String(Math.floor(i / b) + 1).padStart(2, '0') + 'ABCD'[i % b]; };
 async function saFill(setlist, keep) {
   saSlot.innerHTML = '<option>Reading the presets…</option>';
   try { saList = await setlistPresets(setlist); } catch (e) { saList = []; }
-  const n = saList.length || (isHelix() ? 128 : 256);
+  const n = saList.length || (pg && pg.device && pg.device.presets) || (isHelix() ? 128 : 256);
   const byIdx = Object.fromEntries(saList.map(p => [p.index, p.name]));
   saSlot.innerHTML = Array.from({ length: n }, (_, i) =>
     `<option value="${i}">${slotName(i)} · ${escapeHtml(byIdx[i] !== undefined ? byIdx[i] || '(empty)' : '?')}</option>`).join('');
