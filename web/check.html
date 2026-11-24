@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MORF-X device check</title>
+<meta name="description" content="Check which Line 6 unit is connected and whether MORF-X can reach it. Reads only.">
+<link rel="icon" href="app/morf-x-icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root { --night: #100e1f; --panel: #17142b; --rule: #2d2848; --ink: #ebe8f5; --muted: #a8a2c0; --cyan: #5fe0db; --pink: #ec7bb6;
+  --ok: #7ed8a0; --bad: #f2667f; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--night); color: var(--ink); font: 400 17px/1.6 "IBM Plex Sans", system-ui, sans-serif; }
+main { width: min(640px, 100% - 32px); margin: 48px auto; display: grid; gap: 22px; }
+h1 { font: 700 30px/1.2 "Space Grotesk", system-ui, sans-serif; margin: 0; }
+p { margin: 0; color: #cfcae2; }
+ol { margin: 0; padding-left: 22px; color: #cfcae2; display: grid; gap: 6px; }
+.btn { font: 600 18px "Space Grotesk", system-ui, sans-serif; padding: 16px 24px; border-radius: 12px; border: 0; cursor: pointer;
+  background: var(--cyan); color: #0c0a18; justify-self: start; }
+.btn.ghost { background: transparent; color: var(--cyan); border: 1px solid var(--cyan); font-size: 15px; padding: 10px 16px; }
+.card { background: var(--panel); border: 1px solid var(--rule); border-radius: 14px; padding: 20px; display: grid; gap: 12px; }
+.card[hidden] { display: none; }
+pre { margin: 0; white-space: pre-wrap; word-break: break-word; font: 400 15px/1.6 "IBM Plex Mono", ui-monospace, monospace; }
+.ok { color: var(--ok); } .bad { color: var(--bad); }
+.small { font-size: 14px; color: var(--muted); }
+a { color: var(--cyan); }
+</style>
+</head>
+<body>
+<main>
+  <h1>MORF-X device check</h1>
+  <p>This shows which Line 6 unit is plugged in and whether MORF-X can talk to it. It only reads: nothing on your unit or computer is changed.</p>
+  <ol>
+    <li>Plug the unit into this computer by USB and switch it on.</li>
+    <li>Close HX Edit, POD Go Edit and Line 6 Central if they're open.</li>
+    <li>Click the button, pick your unit in the list that pops up, and click <b>Connect</b>.</li>
+  </ol>
+  <button class="btn" id="go">Check my unit</button>
+  <div class="card" id="out" hidden>
+    <pre id="text"></pre>
+    <button class="btn ghost" id="copy">Copy these details</button>
+    <p class="small">Then paste them into a message to whoever sent you this link.</p>
+  </div>
+  <p class="small">Needs Chrome or Edge on a computer. <a href="./">About MORF-X</a></p>
+</main>
+<script>
+const out = document.getElementById('out'), text = document.getElementById('text');
+const hex = n => '0x' + n.toString(16).padStart(4, '0');
+function show(lines, cls) { text.innerHTML = lines.map(l => `<span class="${l[1] || ''}">${l[0].replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c])}</span>`).join('\n'); out.hidden = false; }
+document.getElementById('go').onclick = async () => {
+  const sys = navigator.userAgentData ? navigator.userAgentData.platform : navigator.platform;
+  if (!navigator.usb) { show([['This browser can\'t reach USB devices. Please use Chrome or Edge on a computer.', 'bad'], ['System: ' + sys]]); return; }
+  let d;
+  try { d = await navigator.usb.requestDevice({ filters: [{ vendorId: 0x0E41 }] }); }
+  catch (e) {
+    show([[e.name === 'NotFoundError' ? 'No unit was picked, or none showed up in the list.' : 'Error: ' + e.message, 'bad'],
+      ['If the list was empty: the unit may not be plugged in or switched on, or this computer\'s driver may be hiding it from the browser.'],
+      ['System: ' + sys], ['Browser: ' + navigator.userAgent]]);
+    return;
+  }
+  const lines = [['Unit: ' + (d.productName || '(no name)')], ['Maker: ' + (d.manufacturerName || '?')],
+    ['USB IDs: vendor ' + hex(d.vendorId) + ', product ' + hex(d.productId)],
+    ['Firmware/USB version: ' + d.deviceVersionMajor + '.' + d.deviceVersionMinor + '.' + d.deviceVersionSubminor]];
+  // Can the browser open it and reach the editor connection (interface 0)? Released straight away; nothing is sent.
+  try {
+    await d.open();
+    if (d.configuration === null) await d.selectConfiguration(1);
+    try { await d.claimInterface(0); lines.push(['MORF-X can reach it: YES', 'ok']); await d.releaseInterface(0); }
+    catch (e) { lines.push(['MORF-X can reach it: NO (another program or the driver has it: ' + e.message + ')', 'bad']); }
+    await d.close();
+  } catch (e) { lines.push(['MORF-X can reach it: NO (the browser can\'t open it: ' + e.message + ')', 'bad']); }
+  lines.push(['System: ' + sys], ['Browser: ' + navigator.userAgent]);
+  show(lines);
+};
+document.getElementById('copy').onclick = async () => {
+  try { await navigator.clipboard.writeText(text.textContent); document.getElementById('copy').textContent = 'Copied ✓'; }
+  catch (e) { const r = document.createRange(); r.selectNodeContents(text); getSelection().removeAllRanges(); getSelection().addRange(r); }
+};
+</script>
+</body>
+</html>
