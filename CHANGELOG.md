@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.4 (24 Nov 2026)
+
+- Helix LT: recognised by its own USB ID (0x424A; it calls itself "HELIX"), named Helix LT with its own picture.
+  Thanks to the LT owner who ran the device check. Still not tried with MORF-X, so Save stays hidden.
+- A device check page (check.html): shows which Line 6 unit is plugged in, its USB ID and whether MORF-X can reach it,
+  with a button to email the results.
+
 ## 0.2.3 (24 Nov 2026)
 
 - Helix LT and Helix Rack: MORF-X now offers any Line 6 unit and recognises these by the name they give over USB,
