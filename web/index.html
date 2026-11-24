@@ -116,6 +116,13 @@ section + section { border-top: 1px solid var(--rule); }
 .note { color: var(--muted); font-size: 14px; margin-top: 18px; }
 .note a { white-space: nowrap; }
 
+/* changelog */
+.log { display: grid; gap: 14px; }
+.log .ver { font: 500 13px var(--mono); color: var(--muted); }
+.log .ver b { color: var(--cyan); font-size: 15px; margin-right: 4px; }
+.log ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; color: #cfcae2; font-size: 15px; }
+.log li::marker { color: var(--cyan); }
+
 /* faq */
 details { background: var(--panel); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 20px; }
 details + details { margin-top: 10px; }
@@ -138,7 +145,7 @@ footer .links { display: flex; gap: 16px; flex-wrap: wrap; }
     <div class="links">
       <a href="#how" class="opt">How it works</a>
       <a href="#units" class="opt">Works with</a>
-      <a href="#download">Download</a>
+      <a href="#news" class="opt">What's new</a><a href="#download">Download</a>
       <a href="app/">Open MORF-X</a>
       <a href="https://github.com/tavishrox/morf-x" class="opt">GitHub</a>
     </div>
@@ -203,7 +210,7 @@ footer .links { display: flex; gap: 16px; flex-wrap: wrap; }
 
 <section id="download">
   <div class="wrap">
-    <div class="head"><p class="eyebrow">Get MORF-X · version 0.2.0</p><h2>Pick your computer</h2>
+    <div class="head"><p class="eyebrow">Get MORF-X · version 0.2.1</p><h2>Pick your computer</h2>
       <p class="lead">Use it straight from your browser, or download the app. Both do the same thing.</p></div>
     <div class="dl">
       <div class="dlc browser" data-os="any">
@@ -214,37 +221,60 @@ footer .links { display: flex; gap: 16px; flex-wrap: wrap; }
       <div class="dlc" data-os="mac-arm">
         <span class="os">Mac</span><h3>Apple Silicon</h3>
         <p>Macs with an M1, M2, M3, M4 or later chip.</p>
-        <span class="file">MORF-X-0.2.0-Mac-Apple-Silicon.zip · 115 MB</span>
-        <a class="btn ghost" href="https://github.com/tavishrox/morf-x/releases/download/v0.2.0/MORF-X-0.2.0-Mac-Apple-Silicon.zip">Download</a>
+        <span class="file">MORF-X-0.2.1-Mac-Apple-Silicon.zip · 115 MB</span>
+        <a class="btn ghost" href="https://github.com/tavishrox/morf-x/releases/download/v0.2.1/MORF-X-0.2.1-Mac-Apple-Silicon.zip">Download</a>
       </div>
       <div class="dlc" data-os="mac-intel">
         <span class="os">Mac</span><h3>Intel</h3>
         <p>Older Macs with an Intel processor.</p>
-        <span class="file">MORF-X-0.2.0-Mac-Intel.zip · 122 MB</span>
-        <a class="btn ghost" href="https://github.com/tavishrox/morf-x/releases/download/v0.2.0/MORF-X-0.2.0-Mac-Intel.zip">Download</a>
+        <span class="file">MORF-X-0.2.1-Mac-Intel.zip · 122 MB</span>
+        <a class="btn ghost" href="https://github.com/tavishrox/morf-x/releases/download/v0.2.1/MORF-X-0.2.1-Mac-Intel.zip">Download</a>
       </div>
       <div class="dlc" data-os="win">
         <span class="os">Windows</span><h3>Windows 64-bit</h3>
         <p>Windows 10 and 11. Not yet tried with a unit: the Line 6 driver may keep the USB port to itself.</p>
-        <span class="file">MORF-X-0.2.0-Windows-64-bit.zip · 152 MB</span>
-        <a class="btn ghost" href="https://github.com/tavishrox/morf-x/releases/download/v0.2.0/MORF-X-0.2.0-Windows-64-bit.zip">Download</a>
+        <span class="file">MORF-X-0.2.1-Windows-64-bit.zip · 152 MB</span>
+        <a class="btn ghost" href="https://github.com/tavishrox/morf-x/releases/download/v0.2.1/MORF-X-0.2.1-Windows-64-bit.zip">Download</a>
       </div>
       <div class="dlc" data-os="linux">
         <span class="os">Linux</span><h3>64-bit Intel / AMD</h3>
         <p>Most Linux PCs. Not yet tried: install the included USB rule once (see README-linux.txt inside).</p>
-        <span class="file">MORF-X-0.2.0-Linux-64-bit-Intel-AMD.tar.gz · 119 MB</span>
-        <a class="btn ghost" href="https://github.com/tavishrox/morf-x/releases/download/v0.2.0/MORF-X-0.2.0-Linux-64-bit-Intel-AMD.tar.gz">Download</a>
+        <span class="file">MORF-X-0.2.1-Linux-64-bit-Intel-AMD.tar.gz · 119 MB</span>
+        <a class="btn ghost" href="https://github.com/tavishrox/morf-x/releases/download/v0.2.1/MORF-X-0.2.1-Linux-64-bit-Intel-AMD.tar.gz">Download</a>
       </div>
       <div class="dlc" data-os="linux-arm">
         <span class="os">Linux</span><h3>ARM 64-bit</h3>
         <p>64-bit ARM Linux, such as a Raspberry Pi 4 or 5 on 64-bit Raspberry Pi OS. Not yet tried.</p>
-        <span class="file">MORF-X-0.2.0-Linux-ARM-64-bit.tar.gz · 120 MB</span>
-        <a class="btn ghost" href="https://github.com/tavishrox/morf-x/releases/download/v0.2.0/MORF-X-0.2.0-Linux-ARM-64-bit.tar.gz">Download</a>
+        <span class="file">MORF-X-0.2.1-Linux-ARM-64-bit.tar.gz · 120 MB</span>
+        <a class="btn ghost" href="https://github.com/tavishrox/morf-x/releases/download/v0.2.1/MORF-X-0.2.1-Linux-ARM-64-bit.tar.gz">Download</a>
       </div>
     </div>
     <p class="note">Not sure which Mac you have? Apple menu › About This Mac: "Chip" means Apple Silicon, "Processor" means Intel.
       The Mac apps aren't notarised yet, so the first time, right-click MORF-X and choose Open.
       Older versions and release notes: <a href="https://github.com/tavishrox/morf-x/releases">all releases</a>.</p>
+  </div>
+</section>
+
+<section id="news">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">What's new</p><h2>Changelog</h2></div>
+    <div class="log">
+      <article class="card"><p class="ver"><b>0.2.1</b> · 24 Nov 2026</p>
+        <ul>
+          <li>HX Stomp: presets are now named the way the Stomp shows them, in banks of three (01A to 42C). Thanks to the Stomp owner who reported it.</li>
+          <li>Double-clicking the pad no longer opens the tone editor by accident. Double-click a tone's dot to edit it.</li>
+          <li>This home page, with a download for every computer.</li>
+        </ul></article>
+      <article class="card"><p class="ver"><b>0.2.0</b> · 22 Nov 2026</p>
+        <ul>
+          <li>A new look: the block's knobs laid out like the POD Go's screen, every knob at once.</li>
+          <li>Setlists: pick any setlist and preset from the app, and Save as into any slot.</li>
+          <li>Follows your unit: preset, setlist and effect on/off changes show up in MORF-X.</li>
+          <li>Starts on the amp whenever a preset loads, and shows the unit's firmware version.</li>
+          <li>Apps for Mac, Windows and Linux.</li>
+        </ul></article>
+    </div>
+    <p class="note">Full history: <a href="https://github.com/tavishrox/morf-x/blob/main/CHANGELOG.md">CHANGELOG</a> · <a href="https://github.com/tavishrox/morf-x/releases">all releases</a>.</p>
   </div>
 </section>
 

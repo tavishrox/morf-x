@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.1 (24 Nov 2026)
+
+- HX Stomp: presets are named as the unit shows them, in banks of 3 (01A to 42C), in the preset picker and Save as.
+  Thanks to the Stomp owner who reported it. Every other unit keeps banks of 4.
+- Double-clicking the pad no longer opens the tone editor by accident: double-click a tone's dot to edit it.
+- A home page with every download: https://tavishrox.github.io/morf-x/ (the web app is now at /app/).
+
 ## 0.2.0 (22 Nov 2026)
 
 - A new look: the block's knobs shown like the POD Go's screen, every knob at once, in the MORF-X theme.
