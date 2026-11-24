@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.2 (24 Nov 2026)
+
+- HX Effects: all 9 blocks on each path are found. The 9th block on path A (1A9) was missed before, and path B's
+  9th block was labelled "2A0"; it now reads 1B9. Other units are unchanged.
+
 ## 0.2.1 (24 Nov 2026)
 
 - HX Stomp: presets are named as the unit shows them, in banks of 3 (01A to 42C), in the preset picker and Save as.
