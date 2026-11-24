@@ -15,6 +15,7 @@ fast move into a smooth sweep. Every model starts with five ready-made tones, an
 | POD Go / POD Go Wireless | Tested |
 | Helix Floor | Tested |
 | HX Effects | Tested |
+| Helix LT, Helix Rack | Recognised by name since 0.2.3; not tried yet: Save stays hidden. Please [report how it goes](https://github.com/tavishrox/morf-x/issues). |
 | HX Stomp, HX Stomp XL | Not tried yet: Save stays hidden. Please [report how it goes](https://github.com/tavishrox/morf-x/issues). |
 
 Close POD Go Edit or HX Edit first: only one program can talk to the unit at a time.

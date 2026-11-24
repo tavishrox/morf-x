@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.3 (24 Nov 2026)
+
+- Helix LT and Helix Rack: MORF-X now offers any Line 6 unit and recognises these by the name they give over USB,
+  so they no longer show "no compatible devices". Not yet tried on either: Save stays hidden until someone reports back.
+
 ## 0.2.2 (24 Nov 2026)
 
 - HX Effects: all 9 blocks on each path are found. The 9th block on path A (1A9) was missed before, and path B's

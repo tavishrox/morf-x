@@ -43,6 +43,23 @@
     { vendorId: 0x0E41, productId: 0x4253, name: "HX Stomp XL", image: "devices/stompxl.webp", family: "helix", bStart: 11, untested: true,
       slots: [1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 17, 18] }
   ];
+  // Units recognised by the name they give over USB, for when their product ID isn't in DEVICES (the Helix LT and
+  // Helix Rack, 2026-11-24: their IDs aren't known here). They speak the Helix's protocol and have its block layout.
+  // Not tried on a unit, so Save stays hidden until someone reports back.
+  var HELIX_SLOTS = [1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 17, 18, 21, 22, 23, 24, 25, 26, 27, 28, 31, 32, 33, 34, 35, 36, 37, 38];
+  var BY_NAME = [
+    { re: /helix\s*lt/i, kind: { name: "Helix LT", image: "devices/helixlt.webp", family: "helix", bStart: 11, slots: HELIX_SLOTS, untested: true } },
+    { re: /helix\s*rack/i, kind: { name: "Helix Rack", image: "devices/helixrack.webp", family: "helix", bStart: 11, slots: HELIX_SLOTS, untested: true } },
+    { re: /hx\s*stomp\s*xl/i, pid: 0x4253 }, { re: /hx\s*stomp/i, pid: 0x4246 }, { re: /hx\s*effects/i, pid: 0x4245 },
+    { re: /pod\s*go/i, pid: 0x424B },
+    { re: /helix/i, kind: { name: "Helix", image: "devices/helixfloor.webp", family: "helix", bStart: 11, slots: HELIX_SLOTS, untested: true } }
+  ];
+  function kindByName(d) {
+    var n = (d && d.productName) || "", hit = BY_NAME.find(function (b) { return b.re.test(n); });
+    if (!hit) return null;
+    var k = hit.kind || DEVICES.find(function (x) { return x.productId === hit.pid; });
+    return Object.assign({}, k, { vendorId: d.vendorId, productId: d.productId, matchedByName: true });
+  }
   var RX_BUF = 0x1000, HB_MS = 1000;
   var F_SYN = 0x01, F_FIN = 0x02, F_DATA = 0x04, F_WIN = 0x08, F_HB = 0x10, F_HBREQ = 0x20;
   var EDITOR = { local: 0x1000, remote: 0x03ED, svc: 6 },
@@ -591,9 +608,17 @@
     if (!usb) throw fail("This browser has no WebUSB: use Chrome or Edge on a computer.", "nousb");
     var kinds = opts.devices || [DEVICES[0]];
     var match = function (d) { return kinds.find(function (k) { return d.vendorId === k.vendorId && d.productId === k.productId; }); };
-    var dev = (await usb.getDevices()).find(match);
-    if (!dev) dev = await usb.requestDevice({ filters: kinds.map(function (k) { return { vendorId: k.vendorId, productId: k.productId }; }) });
-    var kind = match(dev) || DEVICES[0];
+    // opts.anyLine6 (MORF-X): also offer any Line 6 device, and recognise it by its USB name (Helix LT, Helix Rack…)
+    var known = function (d) { return match(d) || (opts.anyLine6 && d.vendorId === 0x0E41 ? kindByName(d) : null); };
+    var dev = (await usb.getDevices()).find(known);
+    if (!dev) {
+      var filters = kinds.map(function (k) { return { vendorId: k.vendorId, productId: k.productId }; });
+      if (opts.anyLine6) filters.push({ vendorId: 0x0E41 });
+      dev = await usb.requestDevice({ filters: filters });
+    }
+    var kind = opts.anyLine6 ? known(dev) : (match(dev) || DEVICES[0]);
+    if (!kind) throw fail("MORF-X doesn't know the " + (dev.productName || "device") + " yet (USB product 0x" +
+      dev.productId.toString(16) + "). Please report it at github.com/tavishrox/morf-x/issues.", "unknown");
     await dev.open();
     if (dev.configuration === null) await dev.selectConfiguration(1);
     try { await dev.claimInterface(0); }
@@ -613,6 +638,6 @@
     return pg;
   }
 
-  root.PODGOUSB = { connect: connect, DEVICES: DEVICES, MP: MP, snapshots56: snapshots56, snapshotList: snapshotList, setSnapshot: setSnapshot,
+  root.PODGOUSB = { connect: connect, DEVICES: DEVICES, kindByName: kindByName, MP: MP, snapshots56: snapshots56, snapshotList: snapshotList, setSnapshot: setSnapshot,
                     COLOURS: COLOURS, NAME_MAX: NAME_MAX, text: text, CMD: CMD, K: K, APP: APP };
 })(typeof self !== "undefined" ? self : this);

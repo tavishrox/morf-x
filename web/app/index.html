@@ -358,7 +358,7 @@ kbd { font: 12px var(--mono); border: 1px solid var(--rule); border-bottom-width
   </div>
 </aside>
 
-<script src="podgo-usb.js?v=2026-11-24c"></script>
+<script src="podgo-usb.js?v=2026-11-24d"></script>
 <script>
 'use strict';
 // ---- the five tones: keys as in the tone files, positions in pad space (x, y in [-1, 1], y up) ----
@@ -1141,7 +1141,7 @@ function afterDisconnect() {
 document.getElementById('connect').onclick = async () => {
   connEl.textContent = 'Connecting…';
   try {
-    pg = await PODGOUSB.connect(navigator.usb, { devices: PODGOUSB.DEVICES });
+    pg = await PODGOUSB.connect(navigator.usb, { devices: PODGOUSB.DEVICES, anyLine6: true });
     pg.onNotify(onNote);
     const c = await pg.current();
     connEl.textContent = `Connected to the ${pg.device.name}${pg.device.untested ? ' (not tried with MORF-X yet)' : ''}, preset ${c.preset + 1} "${c.name}" · reading the blocks…`;
@@ -1164,7 +1164,7 @@ document.getElementById('connect').onclick = async () => {
     if (pg) pg.close().catch(() => {});
     pg = null;
     connEl.innerHTML = e && e.name === 'NotFoundError'
-      ? '<b>No device chosen.</b> Pick it in the list the browser shows (plugged in, switched on, its editor app closed). For now that is the POD Go; Helix, HX Stomp and HX Effects are on the way.'
+      ? '<b>No device chosen.</b> Pick your unit in the list the browser shows: plugged in over USB, switched on, and with POD Go Edit, HX Edit and Line 6 Central closed.'
       : `<b>Couldn't connect:</b> ${escapeHtml(e.message || e)}`;
     afterDisconnect();
   }

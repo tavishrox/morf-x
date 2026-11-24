@@ -9,8 +9,11 @@ app.setName('MORF-X');
 nativeTheme.themeSource = 'dark';   // a dark title bar to match the app, whatever the Mac's own setting
 
 // The units MORF-X knows (as in podgo-usb.js): POD Go, Helix, HX Effects, HX Stomp, HX Stomp XL.
-const LINE6 = 0x0e41, PRODUCTS = [0x424b, 0x4248, 0x4245, 0x4246, 0x4253];
-const isUnit = d => d && d.vendorId === LINE6 && PRODUCTS.includes(d.productId);
+// Known by product ID: POD Go, Helix, HX Effects, HX Stomp, HX Stomp XL. Others (Helix LT, Helix Rack…) by their
+// USB name, as the page does (podgo-usb.js kindByName).
+const LINE6 = 0x0e41, PRODUCTS = [0x424b, 0x4248, 0x4245, 0x4246, 0x4253], NAMES = /helix|hx\s*(stomp|effects)|pod\s*go/i;
+const isKnown = d => d && d.vendorId === LINE6 && PRODUCTS.includes(d.productId);
+const isUnit = d => d && d.vendorId === LINE6 && (PRODUCTS.includes(d.productId) || NAMES.test(d.productName || ''));
 
 // app://morf-x/... serves ./web: a secure origin, so WebUSB, fetch() and IndexedDB work as on the website.
 protocol.registerSchemesAsPrivileged([
@@ -47,7 +50,7 @@ app.whenReady().then(() => {
   // A browser shows a device chooser here; the app picks the connected Line 6 unit itself.
   ses.on('select-usb-device', (event, details, callback) => {
     event.preventDefault();
-    const unit = details.deviceList.find(isUnit);
+    const unit = details.deviceList.find(isKnown) || details.deviceList.find(isUnit);
     callback(unit ? unit.deviceId : '');
   });
   ses.setPermissionCheckHandler((wc, permission) => permission === 'usb' || permission === 'fileSystem');
