@@ -32,8 +32,10 @@
       slots: [1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 17, 18, 21, 22, 23, 24, 25, 26, 27, 28, 31, 32, 33, 34, 35, 36, 37, 38] },
     // HX Effects (2026-11-16, on the unit): 1..8 path A, 9 looper, 10 split, 11 merge, path B from 12, 21 output;
     // reading blocks, setting a knob and saving (0x46) checked.
-    { vendorId: 0x0E41, productId: 0x4245, name: "HX Effects", image: "devices/hxfx.webp", family: "helix", bStart: 12,
-      slots: [1, 2, 3, 4, 5, 6, 7, 8, 12, 13, 14, 15, 16, 17, 18, 19, 20] },
+    // HX Effects: 9 blocks per path (HX Edit 3.80 Pilot's Guide): path A 1-9, path B 12-20 (10 split, 11 merge, 21 out),
+    // so one DSP's grid is 22 positions, not the Helix's 20.
+    { vendorId: 0x0E41, productId: 0x4245, name: "HX Effects", image: "devices/hxfx.webp", family: "helix", bStart: 12, grid: 22,
+      slots: [1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19, 20] },
     // The HX Stomp alone has 126 presets in banks of 3 (01A-42C): HX Edit 3.80 Pilot's Guide, device comparison table.
     { vendorId: 0x0E41, productId: 0x4246, name: "HX Stomp", image: "devices/stomp.webp", family: "helix", bStart: 11, untested: true,
       perBank: 3, presets: 126,

@@ -358,7 +358,7 @@ kbd { font: 12px var(--mono); border: 1px solid var(--rule); border-bottom-width
   </div>
 </aside>
 
-<script src="podgo-usb.js?v=2026-11-24a"></script>
+<script src="podgo-usb.js?v=2026-11-24c"></script>
 <script>
 'use strict';
 // ---- the five tones: keys as in the tone files, positions in pad space (x, y in [-1, 1], y up) ----
@@ -1047,7 +1047,7 @@ function showFw() {
 const isHelix = () => !!(pg && pg.device && pg.device.family === 'helix');
 function posLabel(p) {         // POD Go: the slot number; Helix family: DSP, path and slot, e.g. 1A4
   if (!isHelix()) return String(p);
-  const d = Math.floor(p / 20) + 1, r = p % 20, b = pg.device.bStart || 11;
+  const g = pg.device.grid || 20, d = Math.floor(p / g) + 1, r = p % g, b = pg.device.bStart || 11;   // HX Effects: 22
   return r >= b ? `${d}B${r - b + 1}` : `${d}A${r}`;
 }
 function describe(info) {
