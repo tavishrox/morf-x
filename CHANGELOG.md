@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.5 (24 Nov 2026)
+
+- Helix LT: working with MORF-X (tested on Windows); Save and Save as are switched on for it.
+- Windows: confirmed working with a unit. Only one program can talk to the unit at a time, so close MORF-X before
+  running the device check.
+
 ## 0.2.4 (24 Nov 2026)
 
 - Helix LT: recognised by its own USB ID (0x424A; it calls itself "HELIX"), named Helix LT with its own picture.

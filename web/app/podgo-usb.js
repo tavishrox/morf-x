@@ -31,8 +31,9 @@
     { vendorId: 0x0E41, productId: 0x4248, name: "Helix", image: "devices/helixfloor.webp", family: "helix", bStart: 11,
       slots: [1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 17, 18, 21, 22, 23, 24, 25, 26, 27, 28, 31, 32, 33, 34, 35, 36, 37, 38] },
     // Helix LT: USB product 0x424A, and it calls itself "HELIX" over USB (a tester's device check, Windows, 2026-11-24).
-    // Same protocol and block layout as the Helix Floor; not yet tried with MORF-X, so Save stays hidden.
-    { vendorId: 0x0E41, productId: 0x424A, name: "Helix LT", image: "devices/helixlt.webp", family: "helix", bStart: 11, untested: true,
+    // Same protocol and block layout as the Helix Floor. Working with MORF-X on Windows (the tester, 2026-11-24); Save is on,
+    // as on the Helix Floor and HX Effects (the same save command).
+    { vendorId: 0x0E41, productId: 0x424A, name: "Helix LT", image: "devices/helixlt.webp", family: "helix", bStart: 11,
       slots: [1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 17, 18, 21, 22, 23, 24, 25, 26, 27, 28, 31, 32, 33, 34, 35, 36, 37, 38] },
     // HX Effects (2026-11-16, on the unit): 1..8 path A, 9 looper, 10 split, 11 merge, path B from 12, 21 output;
     // reading blocks, setting a knob and saving (0x46) checked.
@@ -52,7 +53,7 @@
   // Not tried on a unit, so Save stays hidden until someone reports back.
   var HELIX_SLOTS = [1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 17, 18, 21, 22, 23, 24, 25, 26, 27, 28, 31, 32, 33, 34, 35, 36, 37, 38];
   var BY_NAME = [
-    { re: /helix\s*lt/i, kind: { name: "Helix LT", image: "devices/helixlt.webp", family: "helix", bStart: 11, slots: HELIX_SLOTS, untested: true } },
+    { re: /helix\s*lt/i, pid: 0x424A },
     { re: /helix\s*rack/i, kind: { name: "Helix Rack", image: "devices/helixrack.webp", family: "helix", bStart: 11, slots: HELIX_SLOTS, untested: true } },
     { re: /hx\s*stomp\s*xl/i, pid: 0x4253 }, { re: /hx\s*stomp/i, pid: 0x4246 }, { re: /hx\s*effects/i, pid: 0x4245 },
     { re: /pod\s*go/i, pid: 0x424B },

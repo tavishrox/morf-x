@@ -15,7 +15,8 @@ fast move into a smooth sweep. Every model starts with five ready-made tones, an
 | POD Go / POD Go Wireless | Tested |
 | Helix Floor | Tested |
 | HX Effects | Tested |
-| Helix LT, Helix Rack | Recognised by name since 0.2.3; not tried yet: Save stays hidden. Please [report how it goes](https://github.com/tavishrox/morf-x/issues). |
+| Helix LT | Tested (on Windows) |
+| Helix Rack | Recognised by name; not tried yet: Save stays hidden. Please [report how it goes](https://github.com/tavishrox/morf-x/issues). |
 | HX Stomp, HX Stomp XL | Not tried yet: Save stays hidden. Please [report how it goes](https://github.com/tavishrox/morf-x/issues). |
 
 Close POD Go Edit or HX Edit first: only one program can talk to the unit at a time.
@@ -34,7 +35,7 @@ Close POD Go Edit or HX Edit first: only one program can talk to the unit at a t
 |---|---|
 | `MORF-X-…-Mac-Apple-Silicon.zip` | Macs with an M1, M2, M3, M4 or later chip. Not notarised: the first time, right-click the app and choose Open. |
 | `MORF-X-…-Mac-Intel.zip` | Older Macs with an Intel processor. Same first-time step. |
-| `MORF-X-…-Windows-64-bit.zip` | Windows 10 and 11. Not yet tried with a unit; the Line 6 driver may keep the USB port to itself. |
+| `MORF-X-…-Windows-64-bit.zip` | Windows 10 and 11. Tested with a Helix LT. |
 | `MORF-X-…-Linux-64-bit-Intel-AMD.tar.gz` | Most Linux PCs. Not yet tried; install the included USB rule once (see `README-linux.txt`). |
 | `MORF-X-…-Linux-ARM-64-bit.tar.gz` | 64-bit ARM Linux, such as a Raspberry Pi 4 or 5 on 64-bit Raspberry Pi OS. Not yet tried. |
 

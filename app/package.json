@@ -1,7 +1,7 @@
 {
   "name": "morf-x",
   "productName": "MORF-X",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "MORF-X: find your tone. Morph a block on a Line 6 POD Go, Helix or HX Effects between five tones, live over USB.",
   "main": "main.js",
   "private": true,
