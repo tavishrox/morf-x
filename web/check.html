@@ -19,6 +19,7 @@ p { margin: 0; color: #cfcae2; }
 ol { margin: 0; padding-left: 22px; color: #cfcae2; display: grid; gap: 6px; }
 .btn { font: 600 18px "Space Grotesk", system-ui, sans-serif; padding: 16px 24px; border-radius: 12px; border: 0; cursor: pointer;
   background: var(--cyan); color: #0c0a18; justify-self: start; }
+.btn { text-decoration: none; display: inline-block; }
 .btn.ghost { background: transparent; color: var(--cyan); border: 1px solid var(--cyan); font-size: 15px; padding: 10px 16px; }
 .card { background: var(--panel); border: 1px solid var(--rule); border-radius: 14px; padding: 20px; display: grid; gap: 12px; }
 .card[hidden] { display: none; }
@@ -40,8 +41,13 @@ a { color: var(--cyan); }
   <button class="btn" id="go">Check my unit</button>
   <div class="card" id="out" hidden>
     <pre id="text"></pre>
-    <button class="btn ghost" id="copy">Copy these details</button>
-    <p class="small">Then paste them into a message to whoever sent you this link.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a class="btn" id="mail" href="#">Email these details to ToneShift</a>
+      <button class="btn ghost" id="copy">Copy these details</button>
+    </div>
+    <p class="small">The email button opens your email app with everything filled in: just press Send. If nothing opens
+      (for example if you use email in a browser), click <b>Copy these details</b> and paste them into an email to
+      <b>toneshift@gmail.com</b>.</p>
   </div>
   <p class="small">Needs Chrome or Edge on a computer. <a href="./">About MORF-X</a></p>
 </main>
@@ -74,6 +80,13 @@ document.getElementById('go').onclick = async () => {
   lines.push(['System: ' + sys], ['Browser: ' + navigator.userAgent]);
   show(lines);
 };
+const TO = 'toneshift@gmail.com';
+function mailLink() {
+  const body = 'Hi, here are my MORF-X device check results:\n\n' + text.textContent + '\n';
+  document.getElementById('mail').href = 'mailto:' + TO + '?subject=' + encodeURIComponent('MORF-X device check') +
+    '&body=' + encodeURIComponent(body);
+}
+new MutationObserver(mailLink).observe(text, { childList: true, characterData: true, subtree: true });
 document.getElementById('copy').onclick = async () => {
   try { await navigator.clipboard.writeText(text.textContent); document.getElementById('copy').textContent = 'Copied ✓'; }
   catch (e) { const r = document.createRange(); r.selectNodeContents(text); getSelection().removeAllRanges(); getSelection().addRange(r); }
