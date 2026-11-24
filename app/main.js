@@ -38,9 +38,31 @@ function createWindow() {
   if (process.env.MORFX_SELFTEST) require(process.env.MORFX_SELFTEST === '1' ? './selftest' : path.resolve(process.env.MORFX_SELFTEST))(win);
 }
 
+// Update check: the newest release on GitHub against this app's version. The app can't replace itself (it isn't
+// signed by Apple), so the page shows a banner that opens the download page. Reads only; sends nothing about the user.
+const RELEASES = 'https://api.github.com/repos/tavishrox/morf-x/releases/latest';
+const DOWNLOAD_PAGE = 'https://tavishrox.github.io/morf-x/#download';
+const newer = (a, b) => {          // is version a newer than b? ("0.2.10" > "0.2.9")
+  const x = a.split('.').map(Number), y = b.split('.').map(Number);
+  for (let i = 0; i < 3; i++) if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) > (y[i] || 0);
+  return false;
+};
+async function updateCheck() {
+  const current = app.getVersion(), json = o => new Response(JSON.stringify(o), { headers: { 'content-type': 'application/json' } });
+  try {
+    const r = await net.fetch(RELEASES, { headers: { accept: 'application/vnd.github+json', 'user-agent': 'MORF-X/' + current } });
+    if (!r.ok) throw new Error('GitHub said ' + r.status);
+    const rel = await r.json(), latest = String(rel.tag_name || '').replace(/^v/, '');
+    return json({ current, latest, newer: !!latest && newer(latest, current), url: DOWNLOAD_PAGE, notes: rel.html_url });
+  } catch (e) {
+    return json({ current, error: String(e.message || e) });
+  }
+}
+
 app.whenReady().then(() => {
   protocol.handle('app', req => {
     const rel = decodeURIComponent(new URL(req.url).pathname).replace(/^\/+/, '');
+    if (rel === '__update') return updateCheck();   // the page asks: is there a newer MORF-X?
     const file = path.normalize(path.join(WEB, rel));
     if (!file.startsWith(WEB)) return new Response('not found', { status: 404 });
     return net.fetch(pathToFileURL(file).toString());

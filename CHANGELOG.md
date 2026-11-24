@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.6 (24 Nov 2026)
+
+- Update check in the desktop app: it tells you when a newer MORF-X is out, with a button to get it. The About menu
+  shows your version and has a Check for updates button.
+- HX Stomp: working with MORF-X (reported by a Stomp owner); Save and Save as are switched on for it.
+
 ## 0.2.5 (24 Nov 2026)
 
 - Helix LT: working with MORF-X (tested on Windows); Save and Save as are switched on for it.

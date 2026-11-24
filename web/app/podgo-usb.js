@@ -42,7 +42,8 @@
     { vendorId: 0x0E41, productId: 0x4245, name: "HX Effects", image: "devices/hxfx.webp", family: "helix", bStart: 12, grid: 22,
       slots: [1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19, 20] },
     // The HX Stomp alone has 126 presets in banks of 3 (01A-42C): HX Edit 3.80 Pilot's Guide, device comparison table.
-    { vendorId: 0x0E41, productId: 0x4246, name: "HX Stomp", image: "devices/stomp.webp", family: "helix", bStart: 11, untested: true,
+    // Working with MORF-X: reported by an HX Stomp owner, 2026-11-24. Save on, as on the Helix Floor, LT and HX Effects.
+    { vendorId: 0x0E41, productId: 0x4246, name: "HX Stomp", image: "devices/stomp.webp", family: "helix", bStart: 11,
       perBank: 3, presets: 126,
       slots: [1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 17, 18] },
     { vendorId: 0x0E41, productId: 0x4253, name: "HX Stomp XL", image: "devices/stompxl.webp", family: "helix", bStart: 11, untested: true,

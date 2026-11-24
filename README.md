@@ -17,7 +17,8 @@ fast move into a smooth sweep. Every model starts with five ready-made tones, an
 | HX Effects | Tested |
 | Helix LT | Tested (on Windows) |
 | Helix Rack | Recognised by name; not tried yet: Save stays hidden. Please [report how it goes](https://github.com/tavishrox/morf-x/issues). |
-| HX Stomp, HX Stomp XL | Not tried yet: Save stays hidden. Please [report how it goes](https://github.com/tavishrox/morf-x/issues). |
+| HX Stomp | Tested |
+| HX Stomp XL | Not tried yet: Save stays hidden. Please [report how it goes](https://github.com/tavishrox/morf-x/issues). |
 
 Close POD Go Edit or HX Edit first: only one program can talk to the unit at a time.
 
