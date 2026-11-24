@@ -9,9 +9,9 @@ app.setName('MORF-X');
 nativeTheme.themeSource = 'dark';   // a dark title bar to match the app, whatever the Mac's own setting
 
 // The units MORF-X knows (as in podgo-usb.js): POD Go, Helix, HX Effects, HX Stomp, HX Stomp XL.
-// Known by product ID: POD Go, Helix, HX Effects, HX Stomp, HX Stomp XL. Others (Helix LT, Helix Rack…) by their
+// Known by product ID: POD Go, Helix, Helix LT, HX Effects, HX Stomp, HX Stomp XL. Others (Helix LT, Helix Rack…) by their
 // USB name, as the page does (podgo-usb.js kindByName).
-const LINE6 = 0x0e41, PRODUCTS = [0x424b, 0x4248, 0x4245, 0x4246, 0x4253], NAMES = /helix|hx\s*(stomp|effects)|pod\s*go/i;
+const LINE6 = 0x0e41, PRODUCTS = [0x424b, 0x4248, 0x424a, 0x4245, 0x4246, 0x4253], NAMES = /helix|hx\s*(stomp|effects)|pod\s*go/i;
 const isKnown = d => d && d.vendorId === LINE6 && PRODUCTS.includes(d.productId);
 const isUnit = d => d && d.vendorId === LINE6 && (PRODUCTS.includes(d.productId) || NAMES.test(d.productName || ''));
 
