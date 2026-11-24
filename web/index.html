@@ -116,6 +116,8 @@ section + section { border-top: 1px solid var(--rule); }
 .note { color: var(--muted); font-size: 14px; margin-top: 18px; }
 .note a { white-space: nowrap; }
 
+.update-note { background: #5fe0db12; border: 1px solid #5fe0db44; border-radius: 12px; padding: 12px 16px; color: #cfcae2; }
+
 /* changelog */
 .log { display: grid; gap: 14px; }
 .log .ver { font: 500 13px var(--mono); color: var(--muted); }
@@ -161,7 +163,7 @@ footer .links { display: flex; gap: 16px; flex-wrap: wrap; }
       <a class="btn primary" href="app/">Open in your browser</a>
       <a class="btn ghost" href="#download">Download the app</a>
     </div>
-    <p class="free">Free · POD Go, Helix, Helix LT and HX Effects · Mac, Windows, Linux</p>
+    <p class="free">Free · POD Go, Helix, Helix LT, HX Effects and HX Stomp · Mac, Windows, Linux</p>
     <figure class="shot" style="margin-inline:0">
       <img src="img/morf-x-app.webp" width="1400" height="978" alt="The MORF-X app connected to a POD Go: the X-Y pad with five tones, the blend between them, and the amp's knobs">
     </figure>
@@ -252,8 +254,11 @@ footer .links { display: flex; gap: 16px; flex-wrap: wrap; }
         <a class="btn ghost" href="https://github.com/tavishrox/morf-x/releases/download/v0.2.6/MORF-X-0.2.6-Linux-ARM-64-bit.tar.gz">Download</a>
       </div>
     </div>
+    <p class="note update-note"><b>Already have MORF-X?</b> If yours is 0.2.5 or older, download 0.2.6 once. From 0.2.6 on,
+      the app tells you when there's a new version, with a button to get it, and About › <b>Check for updates</b> checks any time.
+      The browser version is always the latest: just reload the page.</p>
     <p class="note">Not sure which Mac you have? Apple menu › About This Mac: "Chip" means Apple Silicon, "Processor" means Intel.
-      The Mac apps aren't notarised yet, so the first time, right-click MORF-X and choose Open. From 0.2.6 the app tells you when there's a new version.
+      The Mac apps aren't notarised yet, so the first time, right-click MORF-X and choose Open.
       Older versions and release notes: <a href="https://github.com/tavishrox/morf-x/releases">all releases</a>.</p>
   </div>
 </section>
@@ -311,6 +316,7 @@ footer .links { display: flex; gap: 16px; flex-wrap: wrap; }
     <details><summary>Why won't it connect?</summary><p>Only one program can talk to the unit at a time. Close POD Go Edit or HX Edit, and any other tab or app using MORF-X, then try again. In the browser, use Chrome or Edge.</p></details>
     <details><summary>Does it need special firmware?</summary><p>No. MORF-X works with Line 6's own firmware over USB. It also works alongside <a href="https://tavishrox.github.io/pod-go-nam-lite/web/pod-go/">NAM A2 Lite for POD Go</a>.</p></details>
     <details><summary>Does it work on a phone or iPad?</summary><p>Not yet: phone and tablet browsers can't talk to USB devices. Use a computer with Chrome or Edge, or the app.</p></details>
+    <details><summary>How do I update?</summary><p><b>Desktop app:</b> from version 0.2.6, MORF-X tells you when a new version is out, with a button that opens the download for your computer. You can also check any time in About › Check for updates. If you have 0.2.5 or older, download the latest version from this page once, by hand. Unzip it and replace your old MORF-X app: your saved tones carry over. <b>Browser:</b> nothing to do; reload the page and you have the latest.</p></details>
     <details><summary>How much does it cost?</summary><p>Nothing. MORF-X is free and open source (GPL-3.0), made by ToneShift.</p></details>
   </div>
 </section>
